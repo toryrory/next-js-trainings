@@ -1,12 +1,20 @@
 //корневой элемент у вложеных маршрутов должен называться индекс.джс
+import { FC } from "react";
 import Head from "next/head";
-import Heading from "@/components/Heading";
 import axios from "axios";
 import Link from "next/link";
+import React from "react";
+import { GetStaticProps } from "next";
+import Heading from "../../components/Heading";
+import { contactType } from "../../../types";
+
+type contactsTypeProps = {
+  contacts: [contactType] //каждый элемент массива будет с типом contactType
+}
 
 axios.defaults.baseURL = "https://jsonplaceholder.typicode.com/";
 
-export const getStaticProps = async () => { // зарезевированная функция от Next.js, делает запрос на сервере и возвращает полностью готовую разметку
+export const getStaticProps: GetStaticProps = async () => { // зарезевированная функция от Next.js, делает запрос на сервере и возвращает полностью готовую разметку
  
   const { data } = await axios.get("users");
 
@@ -20,14 +28,14 @@ export const getStaticProps = async () => { // зарезевированная 
   }
 }
 
-const Contacts = ({contacts}) => {
+const Contacts: FC <contactsTypeProps> = ({contacts}) => {
   
   return (
     <>
       <Head>
         <title>Contacts</title>
       </Head>
-      <Heading>Contacts list: (SSR)</Heading>
+      <Heading size={undefined} >Contacts list: (SSR)</Heading>
       <ul>
         {contacts &&
           contacts.map(({ id, name }) => (

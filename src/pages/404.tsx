@@ -2,9 +2,11 @@
 import Head from "next/head";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import Heading from "@/components/Heading";
-import styles from '@/styles/404.module.scss'
-const ErrorPage = () => {
+import Heading from "../components/Heading";
+import styles from '../styles/404.module.scss'
+import { FC } from "react";
+
+const ErrorPage:FC = () => {
   const router = useRouter();
   useEffect(() => {
     setTimeout(() => {
@@ -16,8 +18,8 @@ const ErrorPage = () => {
       <Head>
         <title>Error</title>
       </Head>
-      <Heading>PAGE NOT FOUND</Heading>
-      <Heading tag="h2">Something went wrong, try to reload page</Heading>
+      <Heading size={undefined}>PAGE NOT FOUND</Heading>
+      <Heading size="h2">Something went wrong, try to reload page</Heading>
     </div>
   );
 };

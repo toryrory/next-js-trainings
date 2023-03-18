@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { useRouter } from "next/router"; //под дефолту активная ссылка не подсвечивается, с помощью этого хука в Next.js это делается кастомно
-import styles from "@/styles/NavBar.module.scss";
+import styles from "../styles/NavBar.module.scss";
 import Image from "next/image";
+import { FC } from "react";
 
 
 const navigation = [
@@ -9,7 +10,7 @@ const navigation = [
   { id: 2, title: "Posts", path: "/posts" },
   { id: 3, title: "Contacts", path: "/contacts" }
 ];
-const NavBar = () => {
+const NavBar: FC = () => {
     const { pathname } = useRouter(); //определяет текущую страницу
     
   return (

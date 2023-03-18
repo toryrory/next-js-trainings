@@ -1,10 +1,16 @@
 // SSG approach with fetch on this page, сгенерит статичные страницы для каждой новости, нужно определить сколько страниц будет
+import { GetStaticPaths, GetStaticProps } from "next";
+import { FC } from "react";
 import Head from "next/head";
-import PostInfo from "@/components/PostInfo";
+import PostInfo from "../../components/PostInfo";
+import { postType } from "../../../types";
 
+type postTypeProps = {
+  post: postType
+}
 const BASE_URL = "https://jsonplaceholder.typicode.com/";
 
-export const getStaticPaths = async () => {
+export const getStaticPaths: GetStaticPaths = async () => {
   const response = await fetch(`${BASE_URL}posts`);
   const data = await response.json();
 
@@ -17,7 +23,7 @@ export const getStaticPaths = async () => {
         fallback: false, //в случае возникновнения ошибки вернется 404 ошибка
     }
 };
-export const getStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = async (context) => {
     const { id } = context.params;
   const response = await fetch(`${BASE_URL}posts/${id}`);
   const data = await response.json();
@@ -33,11 +39,11 @@ export const getStaticProps = async (context) => {
     },
   };
 };
-const Post = ({post}) => {
+const Post: FC <postTypeProps>= ({post}) => {
   return (
     <>
-          <Head>Post</Head>
-          <PostInfo post={ post} />
+      <Head>Post</Head>
+      <PostInfo post={ post} />
     </>
   );
 };
