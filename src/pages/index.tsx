@@ -1,6 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
-import bgNextJsImg from "public/next_js_basic-1024x585.png";
+// import bgNextJsImg from "public/next_js_basic-1024x585.png";
 import Heading from "../components/Heading";
 import Socials from "../components/Socials";
 import styles from "../styles/Home.module.scss";
@@ -12,7 +12,8 @@ type socialsTypeProps = {
 }
 
 export const getStaticProps = async () => {
-  const response = await fetch(`${process.env.API_HOST}/socials`);
+  try {
+    const response = await fetch(`${process.env.API_HOST}/socials`);
   const data = await response.json();
 
   if (!data) {
@@ -23,6 +24,11 @@ export const getStaticProps = async () => {
   return {
     props: { socials: data },
   };
+  } catch {
+     return {
+    props: { socials: null },
+  };
+  }
 };
 
 const Home: FC <socialsTypeProps> = ({ socials }) => {
